@@ -1,9 +1,9 @@
-require('dotenv').config();
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const sqlite3 = require("sqlite3").verbose()
 const path = require("path")
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const { GoogleGenerativeAI } = require("@google/generative-ai")
 // Initialize express app
 const app = express()
