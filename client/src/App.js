@@ -16,7 +16,7 @@ function App() {
   const [error, setError] = useState(null)
   const [activeTab, setActiveTab] = useState("ask")
   const [showAnswer, setShowAnswer] = useState(false)
-
+  const BASE_URL = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:5000/api";
   useEffect(() => {
     // Fetch question history on component mount
     fetchHistory()
@@ -24,7 +24,7 @@ function App() {
 
   const fetchHistory = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/history")
+      const response = await fetch(`${BASE_URL}/history`)
       const data = await response.json()
       setHistory(data)
     } catch (err) {
@@ -34,7 +34,7 @@ function App() {
 
   const deleteHistory = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/history/${id}`, {
+      const response = await fetch(`${BASE_URL}/history/${id}`, {
         method: "DELETE"
       });
       if (response.ok) {
@@ -57,7 +57,7 @@ function App() {
 
     try {
       // First get hints
-      const hintsResponse = await fetch("http://localhost:5000/api/hints", {
+      const hintsResponse = await fetch(`${BASE_URL}/hints`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function App() {
       setHints(hintsData.hints)
 
       // Then get full answer
-      const answerResponse = await fetch("http://localhost:5000/api/answer", {
+      const answerResponse = await fetch(`${BASE_URL}/answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
